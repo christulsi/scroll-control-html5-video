@@ -4,11 +4,12 @@ var time = $('#time');
 var scroll = $('#scroll');
 var windowheight = $(window).height()-20;
 
+//set-hieght
+var winheight = document.getElementById('set-height');
 
 var scrollpos = window.pageYOffset/400;
 var targetscrollpos = scrollpos;
 var accel = 0;
-
 
 // ---- Values you can tweak: ----
 var accelamount = 0.01; //How fast the video will try to catch up with the target position. 1 = instantaneous, 0 = do nothing.
@@ -23,7 +24,7 @@ window.onscroll = function(){
   
     //move the red dot to a position across the side of the screen
     //that indicates how far we've scrolled.
-    scroll.css('top', 10+(window.pageYOffset/13500*windowheight));
+    scroll.css('top', 10+(window.pageYOffset/(vid.duration * windowheight/1.8)*windowheight));
 };
 
 
@@ -41,10 +42,12 @@ setInterval(function(){
   
       //move the blue dot to a position across the side of the screen
       //that indicates where the current video scroll pos is.  
-      time.css('top', 10+(scrollpos/13500*400*windowheight));
+      time.css('top', 10+(scrollpos/(vid.duration * windowheight/1.8)*400*windowheight));
   
       //update video playback
       vid.currentTime = scrollpos;
       vid.pause();
+      //alert(vid.duration);
+      winheight.style.height = vid.duration * windowheight/1.8 + "px";
     
 }, 40);
